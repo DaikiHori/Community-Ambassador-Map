@@ -73,10 +73,10 @@ passport.use(new GoogleStrategy({
 
 // ログイン開始
 app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
-
+app.use(express.urlencoded({ extended: true }));
 // Googleからのコールバック
-app.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/login-error' }),
+app.post('/auth/google/callback', 
+    passport.authenticate('google', { failureRedirect: '/login-page' }),
     (req, res) => {
         res.redirect('/'); // 成功したら地図画面へ
     }
