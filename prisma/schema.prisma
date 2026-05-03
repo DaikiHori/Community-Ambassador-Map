@@ -1,0 +1,42 @@
+// データベースの設定（SQLiteを指定）
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ユーザー管理テーブル
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  lastLoginAt   DateTime @default(now())
+  isActive      Boolean  @default(true) // 有効化フラグ
+}
+
+// マップ上の地点（グループ）テーブル
+model LocationGroup {
+  id          Int      @id @default(autoincrement())
+  groupName   String
+  latitude    Float    // 緯度
+  longitude   Float    // 経度
+  isActive    Boolean  @default(true) // 有効化フラグ
+  
+  // リレーション：1つのグループに複数のリーダー詳細が紐付く
+  leaders     LeaderDetail[]
+}
+
+// リーダー詳細テーブル（1グループに最大2レコード想定）
+model LeaderDetail {
+  id                Int           @id @default(autoincrement())
+  locationGroupId   Int
+  nickname          String        // リーダーニックネーム
+  trainerName       String        // リーダートレーナーネーム
+  imageUrl          String        // S3内のパス（ファイル名）
+  comment           String?
+  isActive          Boolean       @default(true) // 有効化フラグ
+
+  // 親テーブルとの紐付け
+  group             LocationGroup @relation(fields: [locationGroupId], references: [id])
+}

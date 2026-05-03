@@ -1,0 +1,89 @@
+/* 吹き出し全体のコンテナ */
+.info-container {
+    color: #333;
+    min-width: 280px; /* 少し広げてゆとりを出す */
+    padding: 8px;
+    font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+}
+
+.info-title {
+    margin: 0 0 15px 0;
+    font-size: 20px; /* タイトルを強調 */
+    font-weight: bold;
+    border-bottom: 2px solid #34A853; /* Pokémon GOっぽいグリーンをアクセントに */
+    padding-bottom: 10px;
+}
+
+/* リーダーごとの行 */
+.leader-item {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.leader-item:first-of-type {
+    border-top: none;
+    margin-top: 5px;
+}
+
+/* リーダー画像（顔写真向けに拡大） */
+.leader-img {
+    width: 60px; /* 50px -> 60px に拡大 */
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* 写真を浮かび上がらせる */
+    flex-shrink: 0;
+}
+
+/* 名前エリア */
+.leader-name-row {
+    display: flex;
+    flex-direction: column; /* 横並びから縦並びに変更して視認性アップ */
+    gap: 2px;
+    margin-bottom: 6px;
+}
+
+.leader-nickname {
+    font-size: 17px; /* 少し大きく */
+    font-weight: bold;
+    color: #222;
+}
+
+.leader-trainer {
+    font-size: 13px;
+    color: #777;
+}
+
+/* コメントエリア */
+.leader-comment {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+    background: #f0f4f8; /* 少し青みがかったグレーで爽やかに */
+    padding: 10px 12px;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* 吹き出しっぽくするための小さな角（お好みで） */
+.leader-comment::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 15px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #f0f4f8;
+}
+
+.no-data {
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    padding: 20px;
+}
