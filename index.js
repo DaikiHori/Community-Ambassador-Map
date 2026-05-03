@@ -102,8 +102,18 @@ app.get('/', ensureAuthenticated, (req, res) => {
 
 // ログインページを表示するルート
 app.get('/login-page', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+    // login.htmlを読み込み、プレースホルダーを置換して返す
+    const fs = require('fs');
+    const path = require('path');
+    let html = fs.readFileSync(path.join(__dirname, 'public', 'login.html'), 'utf8');
+    
+    // サーバー側の設定値を埋め込む
+    html = html.replace('{{GOOGLE_CLIENT_ID}}', process.env.GOOGLE_CLIENT_ID);
+    html = html.replace('{{CALLBACK_URL}}', `${process.env.BASE_URL}/auth/google/callback`);
+    
+    res.send(html);
 });
+
 // 静的ファイルの提供（publicフォルダ）
 app.use(express.static('public'));
 
