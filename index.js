@@ -14,14 +14,23 @@ const client = createClient({
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const isProduction = process.env.NODE_ENV === 'production';
 
-// セッション設定（Map表示の前に記述）
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } // ローカル開発時は false
+    proxy: isProduction, 
+    cookie: {
+        secure: isProduction, 
+        sameSite: isProduction ? 'lax' : 'none', 
+        maxAge: 24 * 60 * 60 * 1000 // 1日
+    }
 }));
+
+if (isProduction) {
+    app.set('trust proxy', 1);
+}
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -75,12 +84,15 @@ passport.use(new GoogleStrategy({
 app.post('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 app.use(express.urlencoded({ extended: true }));
 // Googleからのコールバック
-app.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/login-page' }),
-    (req, res) => {
-        res.redirect('/'); // 成功したら地図画面へ
-    }
-);
+const googleCallbackHandler = passport.authenticate('google', { 
+    failureRedirect: '/login-page', // 失敗した時の飛ばし先
+    successRedirect: '/'           // 成功した時の飛ばし先（ここを明示的に書くのが安全）
+});
+
+// GETとPOSTの両方に同じハンドラーをセット
+app.get('/auth/google/callback', googleCallbackHandler);
+app.post('/auth/google/callback', googleCallbackHandler);
+
 
 // ログアウト
 app.get('/logout', (req, res) => {
