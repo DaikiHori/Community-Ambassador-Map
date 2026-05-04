@@ -75,7 +75,7 @@ passport.use(new GoogleStrategy({
 app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 app.use(express.urlencoded({ extended: true }));
 // Googleからのコールバック
-app.post('/auth/google/callback', 
+app.get('/auth/google/callback', 
     passport.authenticate('google', { failureRedirect: '/login-page' }),
     (req, res) => {
         res.redirect('/'); // 成功したら地図画面へ
