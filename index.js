@@ -94,6 +94,7 @@ const googleCallbackHandler = passport.authenticate('google', {
 app.get('/auth/google/callback', googleCallbackHandler);
 app.post('/auth/google/callback', googleCallbackHandler);
 
+
 // ログアウト
 app.get('/logout', (req, res) => {
     req.logout(() => {
