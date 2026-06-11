@@ -24,6 +24,8 @@
     "@types/node": "^22.10.2",
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.16",
+    "prisma": "^6.19.3",
+    "studio": "^0.13.5",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }

@@ -34,17 +34,19 @@ export function createApp(applicationConfig: ApplicationConfig): express.Express
     app.set('trust proxy', 1);
   }
 
-  app.use(session({
-    secret: applicationConfig.sessionSecret,
-    resave: false,
-    saveUninitialized: false,
-    proxy: applicationConfig.isProduction,
-    cookie: {
-      secure: applicationConfig.isProduction,
-      sameSite: applicationConfig.isProduction ? 'lax' : 'none',
-      maxAge: 24 * 60 * 60 * 1000
-    }
-  }));
+
+    app.use(session({
+        secret: applicationConfig.sessionSecret,
+        resave: false,
+        saveUninitialized: false,
+        proxy: applicationConfig.isProduction,
+        cookie: {
+            secure: applicationConfig.isProduction,
+            sameSite: 'lax',
+            maxAge: 24 * 60 * 60 * 1000
+        }
+    }));
+
 
   configurePassport({
     passport,
