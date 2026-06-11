@@ -6,4 +6,5 @@ node_modules
 *.db-shm
 *.db-wal
 *.db
+/data/*
 /generated/prisma
