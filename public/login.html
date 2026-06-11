@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Community Ambassador Map</title>
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/login.css">
-    <script src="/js/login.js" defer></script>
-</head>
-<body>
-
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <script src="scripts/login.js" defer></script>
+  </head>
+  <body>
     <div class="login-card">
         <h1>Community Ambassador Map</h1>
-        
         <script src="https://accounts.google.com/gsi/client" async defer></script>
-
         <div id="g_id_onload"
             data-client_id="{{GOOGLE_CLIENT_ID}}"
             data-login_uri="{{CALLBACK_URL}}"
@@ -28,8 +25,6 @@
             data-shape="rectangular"
             data-logo_alignment="left">
         </div>
-
         <div id="auth-notice"></div>
-
-</body>
+  </body>
 </html>
