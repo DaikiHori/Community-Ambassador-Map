@@ -1,4 +1,4 @@
-// prisma.config.js
+require('dotenv/config');
 const { defineConfig } = require('@prisma/config');
 const path = require('path');
 
